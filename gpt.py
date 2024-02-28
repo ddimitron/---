@@ -2,7 +2,7 @@ import requests
 from transformers import AutoTokenizer
 import json
 import logging
-from config import URL, HEADERS
+from config import URL, HEADERS, MAX_TOKENS, TEMPERATURE
 filename = 'user.json'
 
 logging.basicConfig(
@@ -34,7 +34,7 @@ gpt = {
                       "на языке программирования python",
     'URL': URL,
     'HEADERS': HEADERS,
-    'MAX_TOKENS': 600,
+    'MAX_TOKENS': MAX_TOKENS,
     'assistant_content': 'Продолжи объяснение: '
 }
 
@@ -74,7 +74,7 @@ def make_prompt(prompt, message):
             {"role": "assistant", "content": users[message.chat.id]
             ['assistant_content']},
         ],
-        "temperature": 0.7,
+        "temperature": TEMPERATURE,
         "max_tokens": gpt['MAX_TOKENS'],
     }
     return json
